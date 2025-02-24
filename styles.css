@@ -1,0 +1,231 @@
+body {
+  font-family: Arial, sans-serif; /* نوع الخط */
+  background-color: #121212; /* لون الخلفية */
+  color: #e0e0e0; /* لون النص */
+  margin: 0;
+  padding: 0;
+}
+
+.welcome-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #1e1e1e;
+  opacity: 1;
+  transition: opacity 1s ease-out;
+}
+
+.welcome-container.hidden {
+  opacity: 0;
+}
+
+.welcome-text {
+  font-size: 50px;
+  color: #bb86fc;
+  animation: slideIn 1s ease-out;
+  position: fixed;
+  top: 40%; /* تعديل الموضع ليكون مريحًا للعين */
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes slideIn {
+  from {
+    top: 100%;
+    opacity: 0;
+  }
+  to {
+    top: 40%;
+    opacity: 1;
+  }
+}
+
+@keyframes moveUp {
+  from {
+    top: 50%;
+  }
+  to {
+    top: 30%;
+  }
+}
+
+@keyframes shrinkAndMove {
+  from {
+    font-size: 50px;
+    top: 50%;
+  }
+  to {
+    font-size: 25px;
+    top: 10px;
+  }
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #1e1e1e;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.form-container.visible {
+  opacity: 1;
+  transform: translateY(0);
+  animation: fadeIn 1s ease-out forwards;
+}
+
+.form-container.hidden {
+  display: none; /* إخفاء الفورم بدون أنيميشن */
+}
+
+.form-container h1 {
+  color: #bb86fc;
+}
+
+.form-container input {
+  display: block;
+  width: 80%; /* تعديل العرض */
+  padding: 10px;
+  margin: 10px auto; /* تعديل التباعد */
+  background-color: #333;
+  color: #e0e0e0;
+  border: none;
+  border-radius: 4px;
+}
+
+.form-container button {
+  display: block;
+  width: 50%; /* تعديل العرض */
+  padding: 10px;
+  margin: 20px auto; /* تعديل التباعد */
+  background-color: #03dac6;
+  color: #121212;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.form-container button:hover {
+  background-color: #02c7b5;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.container {
+  max-width: 600px; /* أقصى عرض للحاوية */
+  margin: 50px auto; /* تباعد الحاوية من الأعلى والأسفل */
+  padding: 20px; /* تباعد داخلي للحاوية */
+  background-color: #1e1e1e; /* لون خلفية الحاوية */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* ظل الحاوية */
+  border-radius: 8px; /* حواف دائرية للحاوية */
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.container.visible {
+  opacity: 1;
+  transform: translateY(0);
+  animation: fadeIn 1s ease-out forwards;
+}
+
+.container.hidden {
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+h1 {
+  text-align: center; /* محاذاة النص إلى الوسط */
+  color: #bb86fc; /* لون النص */
+}
+
+@media (max-width: 400px) {
+  h1 {
+    font-size: 25px; /* حجم الخط للشاشات الصغيرة */
+  }
+}
+
+.question {
+  margin-bottom: 20px; /* تباعد أسفل السؤال */
+}
+
+.question h2 {
+  font-size: 18px; /* حجم خط السؤال */
+  margin-bottom: 10px; /* تباعد أسفل السؤال */
+  color: #bb86fc; /* لون النص */
+}
+
+.options button {
+  display: block; /* عرض الزر ككتلة */
+  width: 100%; /* عرض الزر بالكامل */
+  padding: 10px; /* تباعد داخلي للزر */
+  margin-bottom: 10px; /* تباعد أسفل الزر */
+  background-color: #333; /* لون خلفية الزر */
+  color: #e0e0e0; /* لون النص */
+  border: none; /* إزالة الحدود */
+  cursor: pointer; /* تغيير شكل المؤشر عند التمرير */
+  border-radius: 4px; /* حواف دائرية للزر */
+  transition: background-color 0.3s; /* تأثير الانتقال عند تغيير لون الخلفية */
+}
+
+.options button:hover {
+  background-color: #444; /* لون الخلفية عند التمرير */
+}
+
+.options button.correct {
+  background-color: green; /* لون الخلفية للإجابة الصحيحة */
+}
+
+.options button.incorrect {
+  background-color: red; /* لون الخلفية للإجابة الخاطئة */
+}
+
+#next-button {
+  display: block; /* عرض الزر ككتلة */
+  width: 100%; /* عرض الزر بالكامل */
+  padding: 10px; /* تباعد داخلي للزر */
+  background-color: #03dac6; /* لون خلفية الزر */
+  color: #121212; /* لون النص */
+  border: none; /* إزالة الحدود */
+  cursor: pointer; /* تغيير شكل المؤشر عند التمرير */
+  margin-top: 20px; /* تباعد أعلى الزر */
+  border-radius: 4px; /* حواف دائرية للزر */
+  transition: background-color 0.3s; /* تأثير الانتقال عند تغيير لون الخلفية */
+}
+
+#next-button:hover {
+  background-color: #02c7b5; /* لون الخلفية عند التمرير */
+}
+
+#result {
+  font-size: 18px; /* حجم خط النتيجة */
+  text-align: center; /* محاذاة النص إلى الوسط */
+  margin-top: 20px; /* تباعد أعلى النتيجة */
+  color: #bb86fc; /* لون النص */
+}
