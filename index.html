@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Test Your Knowledge</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="manifest" href="manifest.json">
+    <script src="service-worker.js"></script>
+    <link rel="icon" type="image/png" href="exam.png">
   </head>
   <body>
     <div class="welcome-container">
@@ -24,5 +27,16 @@
       <div id="result" style="display: none"></div> <!-- عنصر لعرض النتيجة النهائية -->
     </div>
     <script src="script.js"></script> <!-- تضمين ملف JavaScript -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(registration => {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          })
+          .catch(error => {
+            console.log('ServiceWorker registration failed: ', error);
+          });
+      }
+    </script>
   </body>
 </html>

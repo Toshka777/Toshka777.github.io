@@ -1,0 +1,25 @@
+{
+  "name": "ExamApp",
+  "short_name": "ExamApp",
+  "start_url": "/index.html",
+  "id": "exam-app",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6200ea",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "exam.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "launch_handler": {},
+  "screenshots": [
+    {
+      "src": "screenshot.png",
+      "sizes": "800x600",
+      "type": "image/png"
+    }
+  ]
+}

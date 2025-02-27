@@ -81,7 +81,9 @@ body {
 }
 
 .form-container.hidden {
-  display: none; /* إخفاء الفورم بدون أنيميشن */
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
 .form-container h1 {
@@ -119,20 +121,20 @@ body {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(100%);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
 @keyframes fadeOut {
   from {
     opacity: 1;
+    transform: translateY(0);
   }
   to {
     opacity: 0;
+    transform: translateY(100%);
   }
 }
 
@@ -198,9 +200,14 @@ h1 {
   background-color: #444; /* لون الخلفية عند التمرير */
 }
 
+.options button.selected {
+  border: 2px solid #03dac6; /* إضافة بوردر للإجابة المحددة */
+}
+
 .options button.correct {
   background-color: green; /* لون الخلفية للإجابة الصحيحة */
 }
+
 
 .options button.incorrect {
   background-color: red; /* لون الخلفية للإجابة الخاطئة */
@@ -228,4 +235,21 @@ h1 {
   text-align: center; /* محاذاة النص إلى الوسط */
   margin-top: 20px; /* تباعد أعلى النتيجة */
   color: #bb86fc; /* لون النص */
+}
+
+#send-button {
+  display: block; /* عرض الزر ككتلة */
+  width: 50%; /* عرض الزر بالكامل */
+  padding: 10px; /* تباعد داخلي للزر */
+  background-color: #03dac6; /* لون خلفية الزر */
+  color: #121212; /* لون النص */
+  border: none; /* إزالة الحدود */
+  cursor: pointer; /* تغيير شكل المؤشر عند التمرير */
+  margin: 20px auto; /* تباعد أعلى وأسفل الزر */
+  border-radius: 4px; /* حواف دائرية للزر */
+  transition: background-color 0.3s; /* تأثير الانتقال عند تغيير لون الخلفية */
+}
+
+#send-button:hover {
+  background-color: #02c7b5; /* لون الخلفية عند التمرير */
 }
