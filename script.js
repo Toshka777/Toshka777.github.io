@@ -1,7 +1,7 @@
 const questions = [
   {
       question: "يمثل اللبن ---- من الدخل الزراعي",
-      options: ["50%", "25%", "60%", "40%"],
+      options: ["50%", "40%", "60%", "25%"],
       correctAnswer: "25%"
   },
   {
@@ -36,7 +36,7 @@ const questions = [
   },
   {
       question: "الكازين يمثل ---- من بروتين اللبن",
-      options: ["20%" , "50%", "80%" , "90%"],
+      options: ["20%" , "50%", "90%" , "80%"],
       correctAnswer: "80%"
   },
   {
