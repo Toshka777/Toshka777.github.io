@@ -19,9 +19,11 @@
         <input type="text" id="username" placeholder="Name" required />
         <button type="submit">Start Quiz</button>
       </form>
+      <p style="color: #bb86fc; margin-top: 20px;">تنبيه: مدة الامتحان ساعة واحدة فقط.</p> <!-- رسالة تنبيه -->
     </div>
     <div class="container" style="display: none;">
       <h1>Test Your Knowledge</h1>
+      <div id="timer" style="text-align: center; font-size: 20px; color: #bb86fc;"></div> <!-- عنصر لعرض المؤقت -->
       <div id="questions-container"></div> <!-- عنصر يحتوي على الأسئلة -->
       <button id="next-button" style="display: none">السؤال التالي</button> <!-- زر الانتقال للسؤال التالي -->
       <div id="result" style="display: none"></div> <!-- عنصر لعرض النتيجة النهائية -->
