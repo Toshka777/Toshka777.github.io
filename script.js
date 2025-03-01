@@ -1,68 +1,30 @@
 const questions = [
   {
-      question: "يمثل اللبن ---- من الدخل الزراعي",
-      options: ["50%", "40%", "60%", "25%"],
-      correctAnswer: "25%"
+    question: "ما هي عاصمة فرنسا؟",
+    options: ["باريس", "لندن", "روما", "مدريد"],
+    correctAnswer: "باريس",
   },
   {
-      question: "ما هي أكبر دولة في إنتاج لبن الجاموس؟",
-      options: ["الصين", "الهند", "مصر", "أمريكا"],
-      correctAnswer: "الهند"
+    question: "ما هو أكبر كوكب في المجموعة الشمسية؟",
+    options: ["الأرض", "المريخ", "المشتري", "زحل"],
+    correctAnswer: "المشتري",
   },
   {
-      question: "يتم إنتاج لبن الأغنام في مصر بنسبة",
-      options: ["10%", "5%", "1%", "3%"],
-      correctAnswer: "1%"
+    question: "ما هو الحيوان الأسرع في العالم؟",
+    options: ["الفهد", "الأسد", "النمر", "الفيل"],
+    correctAnswer: "الفهد",
   },
-  {
-      question: "يتم إنتاج لبن الماعز بنسبة",
-      options: ["2%", "0.5%", "25%", "20%"],
-      correctAnswer: "0.5%"
-  },
-  {
-      question: "نسبة الأحماض الدهنية المشبعة",
-      options: ["20%", "30%", "60%", "40%"],
-      correctAnswer: "60%"
-  },
-  {
-      question: "نسبة الدهون الحقيقية في اللبن",
-      options: ["50%", "2%", "98%", "94%"],
-      correctAnswer: "98%"
-  },
-  {
-      question: "أكثر الأحماض الدهنية المشبعة في اللبن هو",
-      options: ["حمض الأوليك", "حمض البالمتيك", "حمض اللينويك"],
-      correctAnswer: "حمض البالمتيك"
-  },
-  {
-      question: "الكازين يمثل ---- من بروتين اللبن",
-      options: ["20%" , "50%", "90%" , "80%"],
-      correctAnswer: "80%"
-  },
-  {
-      question: "يزداد انزيم ---- في حالة حدوث التهاب الضرع",
-      options: ["الكتاليز", "الفوسفاتيز", "الليبين", "السيروكسيديز"],
-      correctAnswer: "الكتاليز"
-  },
-  {
-      question: "أكثر الأحماض الدهنية الغير مشبعة انتشاراً في اللبن",
-      options: ["حمض الأوليك", "حمض البالمتيك", "حمض الأركيدونيك", "حمض الاستياريك"],
-      correctAnswer: "حمض الأوليك"
-  }
 ];
 
 let currentQuestionIndex = 0; // مؤشر السؤال الحالي
 let score = 0; // درجة المستخدم
 let userAnswers = []; // تخزين إجابات المستخدم
-let timer; // مؤقت الامتحان
-const examDuration = 60 * 60 * 1000; // مدة الامتحان ساعة واحدة بالمللي ثانية
 
 const welcomeContainer = document.querySelector(".welcome-container"); // عنصر يحتوي على شاشة الترحيب
 const formContainer = document.querySelector(".form-container"); // عنصر يحتوي على الفورم
 const questionsContainer = document.getElementById("questions-container"); // عنصر يحتوي على الأسئلة
 const nextButton = document.getElementById("next-button"); // زر الانتقال للسؤال التالي
 const resultContainer = document.getElementById("result"); // عنصر لعرض النتيجة النهائية
-const timerContainer = document.getElementById("timer"); // عنصر لعرض المؤقت
 
 // إخفاء شاشة الترحيب بعد 3 ثواني وعرض الفورم
 setTimeout(() => {
@@ -88,25 +50,8 @@ document.getElementById("user-form").addEventListener("submit", (e) => {
   const container = document.querySelector(".container");
   container.style.display = "block";
   container.classList.add("visible");
-  startTimer(examDuration); // بدء المؤقت
   showQuestion(currentQuestionIndex);
 });
-
-function startTimer(duration) {
-  let startTime = Date.now();
-  timer = setInterval(() => {
-    let elapsedTime = Date.now() - startTime;
-    let remainingTime = duration - elapsedTime;
-    if (remainingTime <= 0) {
-      clearInterval(timer);
-      showResult();
-    } else {
-      let minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-      let seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
-      timerContainer.textContent = `الوقت المتبقي: ${minutes} دقيقة و ${seconds} ثانية`;
-    }
-  }, 1000);
-}
 
 function showQuestion(index) {
   questionsContainer.innerHTML = ""; // تفريغ محتوى عنصر الأسئلة
@@ -155,37 +100,38 @@ nextButton.addEventListener("click", () => {
 });
 
 function showResult() {
-  clearInterval(timer); // إيقاف المؤقت
   questionsContainer.style.display = "none"; // إخفاء عنصر الأسئلة
   nextButton.style.display = "none"; // إخفاء زر الانتقال للسؤال التالي
   resultContainer.style.display = "block"; // عرض عنصر النتيجة النهائية
 
   let resultHTML = `<h2>نتائج الاختبار</h2>`;
   questions.forEach((question, index) => {
-    if (userAnswers[index] !== undefined) {
-      const userAnswer = userAnswers[index];
-      const correctAnswer = question.correctAnswer;
-      const isCorrect = userAnswer === correctAnswer;
-      if (isCorrect) score++;
-      resultHTML += `
-        <div class="result-question">
-          <h3>${question.question}</h3>
-          <p>إجابتك: ${userAnswer} ${isCorrect ? "(صحيحة)" : "(خاطئة)"}</p>
-          ${!isCorrect ? `<p>الإجابة الصحيحة: ${correctAnswer}</p>` : ""}
-        </div>
-      `;
-    }
+    const userAnswer = userAnswers[index];
+    const correctAnswer = question.correctAnswer;
+    const isCorrect = userAnswer === correctAnswer;
+    if (isCorrect) score++;
+    resultHTML += `
+      <div class="result-question">
+        <h3>${question.question}</h3>
+        <p>إجابتك: ${userAnswer} ${isCorrect ? "(صحيحة)" : "(خاطئة)"}</p>
+        ${!isCorrect ? `<p>الإجابة الصحيحة: ${correctAnswer}</p>` : ""}
+      </div>
+    `;
   });
 
   resultHTML += `<p>لقد أجبت بشكل صحيح على ${score} من ${questions.length} أسئلة.</p>`;
+  resultHTML += `<button id="send-button" class="send-button">إرسال الإجابات</button>`; // إضافة زر إرسال الإجابات
   resultContainer.innerHTML = resultHTML;
 
+  document.getElementById("send-button").addEventListener("click", handleSend);
+}
+
+function handleSend() {
   if (navigator.onLine) {
     sendEmail(userAnswers);
-    resultContainer.innerHTML += `<p style="color: green; font-weight: bold;">تم إرسال الإجابات بنجاح.</p>`;
   } else {
     localStorage.setItem("userAnswers", JSON.stringify(userAnswers));
-    resultContainer.innerHTML += `<p style="color: red; font-weight: bold;">لم يتم إرسال الإجابات لأنك غير متصل بالإنترنت.</p>`;
+    alert("لا يوجد اتصال بالإنترنت. سيتم إرسال الإجابات عند توفر الإنترنت.");
   }
 }
 
