@@ -1,4 +1,4 @@
-const CACHE_NAME = 'my-app-cache-v3';
+const CACHE_NAME = 'my-app-cache-v4';
 const urlsToCache = [
   './',
   './index.html',
@@ -18,6 +18,23 @@ self.addEventListener('install', event => {
       );
     })
   );
+  self.skipWaiting(); // تفعيل الخدمة الجديدة فورًا
+});
+
+self.addEventListener('activate', event => {
+  const cacheWhitelist = [CACHE_NAME];
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (!cacheWhitelist.includes(cacheName)) {
+            return caches.delete(cacheName); // حذف الكاش القديم
+          }
+        })
+      );
+    })
+  );
+  self.clients.claim(); // جعل الخدمة الجديدة تتحكم في جميع العملاء فورًا
 });
 
 self.addEventListener('fetch', event => {
