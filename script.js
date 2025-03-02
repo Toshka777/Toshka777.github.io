@@ -155,27 +155,23 @@ function showResult() {
   });
 
   resultHTML += `<p>لقد أجبت بشكل صحيح على ${score} من ${questions.length} أسئلة.</p>`;
-  resultHTML += `<button id="send-button" class="send-button">إرسال الإجابات</button>`; // إضافة زر إرسال الإجابات
   resultContainer.innerHTML = resultHTML;
 
-  document.getElementById("send-button").addEventListener("click", handleSend);
-}
-
-function handleSend() {
   if (navigator.onLine) {
-    sendEmail(userAnswers);
+    sendEmail(resultHTML);
+    resultContainer.innerHTML += `<p style="color: green; font-weight: bold;">تم إرسال الإجابات بنجاح.</p>`;
   } else {
     localStorage.setItem("userAnswers", JSON.stringify(userAnswers));
-    alert("لا يوجد اتصال بالإنترنت. سيتم إرسال الإجابات عند توفر الإنترنت.");
+    resultContainer.innerHTML += `<p style="color: red; font-weight: bold;">لم يتم إرسال الإجابات لأنك غير متصل بالإنترنت.</p>`;
   }
 }
 
-function sendEmail(answers) {
+function sendEmail(resultHTML) {
   const username = document.getElementById("username").value;
   const templateParams = {
     to_email: "yta861356@gmail.com",
     from_name: username,
-    message: `اسم الطالب: ${username}\nالنتيجة: ${JSON.stringify(answers)}`,
+    message: `اسم الطالب: ${username}\n${resultHTML}`,
   };
 
   fetch("https://api.emailjs.com/api/v1.0/email/send", {
