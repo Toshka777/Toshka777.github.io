@@ -158,7 +158,7 @@ function showResult() {
   resultContainer.innerHTML = resultHTML;
 
   if (navigator.onLine) {
-    sendEmail(resultHTML);
+    sendEmail(stripHTML(resultHTML));
     resultContainer.innerHTML += `<p style="color: green; font-weight: bold;">تم إرسال الإجابات بنجاح.</p>`;
   } else {
     localStorage.setItem("userAnswers", JSON.stringify(userAnswers));
@@ -166,12 +166,18 @@ function showResult() {
   }
 }
 
-function sendEmail(resultHTML) {
+function stripHTML(html) {
+  const tmp = document.createElement("DIV");
+  tmp.innerHTML = html;
+  return tmp.textContent || tmp.innerText || "";
+}
+
+function sendEmail(resultText) {
   const username = document.getElementById("username").value;
   const templateParams = {
     to_email: "yta861356@gmail.com",
     from_name: username,
-    message: `اسم الطالب: ${username}\n${resultHTML}`,
+    message: `اسم الطالب: ${username}\n${resultText}`,
   };
 
   fetch("https://api.emailjs.com/api/v1.0/email/send", {
@@ -201,7 +207,7 @@ function sendEmail(resultHTML) {
 window.addEventListener("online", () => {
   const storedAnswers = localStorage.getItem("userAnswers");
   if (storedAnswers) {
-    sendEmail(JSON.parse(storedAnswers));
+    sendEmail(stripHTML(storedAnswers));
     localStorage.removeItem("userAnswers");
   }
 });
