@@ -15,12 +15,35 @@
     </div>
     <div class="form-container" style="display: none;">
       <h1>Enter Your Information</h1>
+      <div class="alert" id="name-alert">تنبيه : اكتب اسمك بطريقة صحيحة لانك لن تستطيع التعديل عليه لاحقا</div> <!-- التنبيه الجديد -->
       <form id="user-form">
         <input type="text" id="username" placeholder="Name" required />
-        <button type="submit">Start Quiz</button>
+        <button type="submit">Start</button>
       </form>
-      <p style="color: #bb86fc; margin-top: 20px;">تنبيه: مدة الامتحان ساعة واحدة فقط.</p> <!-- رسالة تنبيه -->
       <p style="color: #03dac6; margin-top: 10px; font-size: 14px; text-align: center;">إعداد : ريهام رضا <br> تحت إشراف د / هشام عبد الرحمن الشنيطي</p> <!-- الجملة الجديدة -->
+    </div>
+    <div class="test-selection-container" style="display: none;">
+      <h1>Select a Test</h1>
+      <div id="test-list">
+        <div class="test-item">
+          <h2>اختبار المحاضرة 1</h2>
+          <p>مدة الاختبار: ساعة واحدة</p>
+          <p id="test1-status">الحالة: لم يتم الامتحان</p>
+          <button onclick="startTest(1)">ابدأ الاختبار</button>
+        </div>
+        <div class="test-item">
+          <h2>اختبار المحاضرة 2</h2>
+          <p>مدة الاختبار: ساعة واحدة</p>
+          <p id="test2-status">الحالة: لم يتم الامتحان</p>
+          <button onclick="startTest(2)">ابدأ الاختبار</button>
+        </div>
+        <div class="test-item">
+          <h2>اختبار المحاضرة 3</h2>
+          <p>مدة الاختبار: ساعة واحدة</p>
+          <p id="test3-status">الحالة: لم يتم الامتحان</p>
+          <button onclick="startTest(3)">ابدأ الاختبار</button>
+        </div>
+      </div>
     </div>
     <div class="container" style="display: none;">
       <h1>Test Your Knowledge</h1>
@@ -51,6 +74,12 @@
             console.log('ServiceWorker registration failed: ', error);
           });
       }
+
+      document.getElementById('user-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        document.querySelector('.form-container').style.display = 'none';
+        document.querySelector('.test-selection-container').style.display = 'block';
+      });
     </script>
   </body>
 </html>

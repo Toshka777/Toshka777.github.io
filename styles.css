@@ -4,6 +4,14 @@ body {
   color: #e0e0e0; /* لون النص */
   margin: 0;
   padding: 0;
+  background-image: url('background.jpg'); /* إضافة خلفية معبرة */
+  background-size: cover; /* تغطية الخلفية بالكامل */
+  background-position: center; /* تمركز الخلفية في المنتصف */
+  transition: background-image 1s ease-out; /* إضافة تأثير الانتقال */
+}
+
+body.no-background {
+  background-image: none; /* إزالة الخلفية */
 }
 
 .welcome-container {
@@ -175,6 +183,7 @@ h1 {
 
 .question {
   margin-bottom: 20px; /* تباعد أسفل السؤال */
+  text-align: center; /* محاذاة النص إلى الوسط */
 }
 
 .question h2 {
@@ -252,4 +261,115 @@ h1 {
 
 #send-button:hover {
   background-color: #02c7b5; /* لون الخلفية عند التمرير */
+}
+
+.test-selection-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #1e1e1e;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.test-selection-container.visible {
+  opacity: 1;
+  transform: translateY(0);
+  animation: fadeIn 1s ease-out forwards;
+}
+
+.test-selection-container.hidden {
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.test-item {
+  display: block;
+  width: 90%; /* تعديل العرض */
+  padding: 20px;
+  margin: 20px auto; /* تعديل التباعد */
+  background-color: #333;
+  color: #e0e0e0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.test-item h2 {
+  font-size: 24px;
+  color: #bb86fc;
+  margin-bottom: 10px;
+}
+
+.test-item p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.test-item p.status-not-done {
+  color: red; /* لون النص للحالة لم يتم الامتحان */
+}
+
+.test-item p.status-done {
+  color: green; /* لون النص للحالة تم الامتحان */
+}
+
+.test-item button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #03dac6;
+  color: #121212;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.test-item button:hover {
+  background-color: #02c7b5;
+}
+
+#submit-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #03dac6;
+  color: #121212;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+#submit-button:hover {
+  background-color: #02c7b5;
+}
+
+.alert {
+  background-color: #ffcc00; /* لون الخلفية */
+  color: #121212; /* لون النص */
+  padding: 10px; /* تباعد داخلي */
+  margin-bottom: 20px; /* تباعد أسفل العنصر */
+  border-radius: 4px; /* حواف دائرية */
+  text-align: center; /* محاذاة النص إلى الوسط */
+  font-weight: bold; /* جعل النص عريض */
+}
+
+input[type="text"] {
+  display: block; /* عرض الحقل ككتلة */
+  margin: 20px auto; /* تباعد داخلي للحقل */
+  padding: 10px; /* تباعد داخلي للحقل */
+  background-color: #333; /* لون خلفية الحقل */
+  color: #e0e0e0; /* لون النص */
+  border: none; /* إزالة الحدود */
+  border-radius: 4px; /* حواف دائرية للحقل */
+  text-align: center; /* محاذاة النص إلى الوسط */
 }
