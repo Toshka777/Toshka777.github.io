@@ -373,3 +373,65 @@ input[type="text"] {
   border-radius: 4px; /* حواف دائرية للحقل */
   text-align: center; /* محاذاة النص إلى الوسط */
 }
+
+#logout-button {
+  display: block;
+  width: 50%;
+  padding: 10px;
+  background-color: #ff0000;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  margin: 20px auto;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+#logout-button:hover {
+  background-color: #cc0000;
+}
+
+.back-button {
+  padding: 10px;
+  background-color: #e0e0e0;
+  color: #03dac6;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#back-to-main-menu-button {
+  display: block;
+  width: 50%;
+  padding: 10px;
+  background-color: #03dac6;
+  color: #121212;
+  border: none;
+  cursor: pointer;
+  margin: 20px auto;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+#back-to-main-menu-button:hover {
+  background-color: #02c7b5;
+}
+
+#back-button {
+  display: block;
+  width: 50%;
+  padding: 10px;
+  background-color: #03dac6;
+  color: #121212;
+  border: none;
+  cursor: pointer;
+  margin: 20px auto;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+#back-button:hover {
+  background-color: #02c7b5;
+}

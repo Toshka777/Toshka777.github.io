@@ -459,6 +459,16 @@ function showResult() {
   submitButton.textContent = "تسليم الاختبار";
   submitButton.addEventListener("click", handleSubmit);
   resultContainer.appendChild(submitButton);
+
+  const backButton = document.createElement("button");
+  backButton.id = "back-to-main-menu-button";
+  backButton.textContent = "الرجوع إلى القائمة الرئيسية";
+  backButton.style.backgroundColor = "#ffcc00"; // لون مميز للزر
+  backButton.style.color = "#121212"; // لون النص
+  backButton.addEventListener("click", () => {
+    location.reload(); // إعادة تحميل الصفحة
+  });
+  resultContainer.appendChild(backButton);
 }
 
 function handleSubmit() {
@@ -477,9 +487,9 @@ function handleSubmit() {
     localStorage.setItem(`test${currentTest}-status`, "تم الامتحان");
   } else {
     alert("أنت لست متصل بالإنترنت، لم يتم تسليم الاختبار.");
-    testSelectionContainer.style.display = "block";
-    resultContainer.style.display = "none";
   }
+
+  document.getElementById("back-to-main-menu-button").style.display = "none"; // إخفاء زر الرجوع إلى القائمة الرئيسية
 
   let countdown = 5;
   const countdownElement = document.createElement("p");
@@ -492,7 +502,6 @@ function handleSubmit() {
     countdown--;
     if (countdown < 0) {
       clearInterval(countdownInterval);
-      resetTest();
       location.reload(); // إعادة تحميل الصفحة
     }
   }, 1000); // عداد 5 ثواني
@@ -593,3 +602,8 @@ window.addEventListener("load", () => {
     testSelectionContainer.classList.add("visible");
   }
 });
+
+function logout() {
+  localStorage.clear(); // حذف جميع البيانات المخزنة في الذاكرة الداخلية
+  location.reload(); // إعادة تحميل الصفحة
+}

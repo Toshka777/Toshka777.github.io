@@ -44,6 +44,7 @@
           <button onclick="startTest(3)">ابدأ الاختبار</button>
         </div>
       </div>
+      <button id="logout-button" class="logout-button" onclick="logout()">تسجيل الخروج</button> <!-- زر تسجيل الخروج -->
     </div>
     <div class="container" style="display: none;">
       <h1>Test Your Knowledge</h1>
@@ -51,6 +52,7 @@
       <div id="questions-container"></div> <!-- عنصر يحتوي على الأسئلة -->
       <button id="next-button" style="display: none">السؤال التالي</button> <!-- زر الانتقال للسؤال التالي -->
       <div id="result" style="display: none"></div> <!-- عنصر لعرض النتيجة النهائية -->
+      <button id="back-button" class="back-button" style="display: none" onclick="goBackToMenu()">الرجوع إلى القائمة الرئيسية</button> <!-- زر الرجوع إلى القائمة الرئيسية -->
     </div>
     <script src="script.js"></script> <!-- تضمين ملف JavaScript -->
     <script>
