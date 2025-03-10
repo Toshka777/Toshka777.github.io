@@ -454,3 +454,7 @@ input[type="text"] {
   background-color: #02c7b5;
 }
 
+#info {
+  color:#03c1da;
+  font-weight: bold;
+}
