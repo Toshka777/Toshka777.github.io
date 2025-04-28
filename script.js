@@ -452,6 +452,8 @@ function showResult() {
   clearInterval(timerInterval); // إيقاف المؤقت
   questionsContainer.style.display = "none"; // إخفاء عنصر الأسئلة
   nextButton.style.display = "none"; // إخفاء زر الانتقال للسؤال التالي
+  previousButton.style.display = "none"; // إخفاء زر السؤال السابق
+  document.getElementById("back-to-selection-button").style.display = "none"; // إخفاء زر الرجوع إلى القائمة الرئيسية
   resultContainer.style.display = "block"; // عرض عنصر النتيجة النهائية
 
   let resultHTML = `<h2>نتائج الاختبار</h2>`;
