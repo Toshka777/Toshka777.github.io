@@ -1,4 +1,4 @@
-const CACHE_NAME = 'my-app-cache-v14';
+const CACHE_NAME = 'my-app-cache-v17';
 const urlsToCache = [
   './',
   './index.html',
@@ -40,7 +40,14 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(response => {
-      return response || fetch(event.request).then(fetchResponse => {
+      if (response) {
+        return response; // إرجاع الاستجابة من الكاش إذا كانت موجودة
+      }
+      return fetch(event.request).then(fetchResponse => {
+        // التحقق من أن الاستجابة ليست جزئية (Partial Response)
+        if (!fetchResponse || fetchResponse.status !== 200 || fetchResponse.type !== 'basic') {
+          return fetchResponse;
+        }
         return caches.open(CACHE_NAME).then(cache => {
           cache.put(event.request, fetchResponse.clone());
           return fetchResponse;
