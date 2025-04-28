@@ -21,11 +21,12 @@ body.no-background {
   height: 100vh;
   background-color: #1e1e1e;
   opacity: 1;
-  transition: opacity 1s ease-out;
+  transition: opacity 1s ease-out, visibility 1s ease-out;
 }
 
 .welcome-container.hidden {
   opacity: 0;
+  visibility: hidden; /* إخفاء العنصر بعد انتهاء الانتقال */
 }
 
 .welcome-text {
@@ -224,20 +225,46 @@ h1 {
 }
 
 #next-button {
-  display: block; /* عرض الزر ككتلة */
-  width: 100%; /* عرض الزر بالكامل */
-  padding: 10px; /* تباعد داخلي للزر */
+  display: block; /* عرض الزر دائمًا */
+  width: 70%; /* تقليل العرض ليكون أصغر */
+  padding: 12px; /* تقليل التباعد الداخلي */
   background-color: #03dac6; /* لون خلفية الزر */
   color: #121212; /* لون النص */
   border: none; /* إزالة الحدود */
   cursor: pointer; /* تغيير شكل المؤشر عند التمرير */
-  margin-top: 20px; /* تباعد أعلى الزر */
-  border-radius: 4px; /* حواف دائرية للزر */
-  transition: background-color 0.3s; /* تأثير الانتقال عند تغيير لون الخلفية */
+  margin: 15px auto; /* تباعد من الأعلى والأسفل */
+  border-radius: 6px; /* حواف دائرية أصغر */
+  transition: background-color 0.3s; /* تأثير الانتقال عند تغيير اللون */
+  text-align: center; /* محاذاة النص إلى الوسط */
+  font-size: 14px; /* حجم النص أصغر */
 }
 
-#next-button:hover {
-  background-color: #02c7b5; /* لون الخلفية عند التمرير */
+#next-button:disabled {
+  background-color: #888; /* لون مختلف عند التعطيل */
+  cursor: not-allowed; /* تغيير شكل المؤشر عند التعطيل */
+}
+
+#next-button:hover:enabled {
+  background-color: #02c7b5; /* لون عند التمرير إذا كان الزر مفعلاً */
+}
+
+#previous-button {
+  display: block; /* عرض الزر دائمًا */
+  width: 70%; /* تقليل العرض ليكون أصغر */
+  padding: 12px; /* تقليل التباعد الداخلي */
+  background-color: #ff5722; /* لون جديد لزر السؤال السابق */
+  color: #ffffff; /* لون النص */
+  border: none; /* إزالة الحدود */
+  cursor: pointer; /* تغيير شكل المؤشر عند التمرير */
+  margin: 15px auto; /* تباعد من الأعلى والأسفل */
+  border-radius: 6px; /* حواف دائرية أصغر */
+  transition: background-color 0.3s; /* تأثير الانتقال عند تغيير اللون */
+  text-align: center; /* محاذاة النص إلى الوسط */
+  font-size: 14px; /* حجم النص أصغر */
+}
+
+#previous-button:hover {
+  background-color: #e64a19; /* لون عند التمرير */
 }
 
 #result {
@@ -435,6 +462,25 @@ input[type="text"] {
 
 #back-button:hover {
   background-color: #02c7b5;
+}
+
+#back-to-selection-button {
+  display: block;
+  width: 70%;
+  padding: 12px;
+  background-color: #03a9f4; /* لون خلفية الزر */
+  color: #ffffff; /* لون النص */
+  border: none;
+  cursor: pointer;
+  margin: 15px auto;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+  text-align: center;
+  font-size: 14px;
+}
+
+#back-to-selection-button:hover {
+  background-color: #0288d1; /* لون عند التمرير */
 }
 
 .music-toggle {

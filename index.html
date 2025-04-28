@@ -53,9 +53,11 @@
       <h1>Test Your Knowledge</h1>
       <div id="timer" style="text-align: center; font-size: 20px; color: #bb86fc;"></div>
       <div id="questions-container"></div>
-      <button id="next-button" style="display: none">السؤال التالي</button>
-      <div id="result" style="display: none"></div>
-      <button id="back-button" class="back-button" style="display: none" onclick="goBackToMenu()">الرجوع إلى القائمة الرئيسية</button>
+      <button id="next-button" style="display: none;">السؤال التالي</button>
+      <button id="previous-button" style="display: none;">السؤال السابق</button>
+      <button id="back-to-selection-button" style="display: none;" onclick="goBackToSelection()">الرجوع إلى القائمة الرئيسية</button>
+      <div id="result" style="display: none;"></div>
+      <button id="back-button" class="back-button" style="display: none;" onclick="goBackToMenu()">الرجوع إلى القائمة الرئيسية</button>
     </div>
     <!-- الموسيقى -->
     <audio id="background-music" src="biano.mp3" loop></audio>
@@ -75,7 +77,7 @@
         event.preventDefault();
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-        
+
         if (password === '2195') {
           localStorage.setItem('auth', 'true');
           localStorage.setItem('username', username);

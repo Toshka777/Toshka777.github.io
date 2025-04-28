@@ -274,6 +274,7 @@ const testSelectionContainer = document.querySelector(
 ); // عنصر يحتوي على قائمة الاختبارات
 const questionsContainer = document.getElementById("questions-container"); // عنصر يحتوي على الأسئلة
 const nextButton = document.getElementById("next-button"); // زر الانتقال للسؤال التالي
+const previousButton = document.getElementById("previous-button"); // زر الانتقال للسؤال السابق
 const resultContainer = document.getElementById("result"); // عنصر لعرض النتيجة النهائية
 const timerElement = document.getElementById("timer"); // عنصر لعرض المؤقت
 
@@ -287,6 +288,11 @@ setTimeout(() => {
       formContainer.style.display = "block";
       formContainer.classList.add("visible");
     }, 1300); // تأخير لإخفاء شاشة الترحيب بشكل كامل
+  } else {
+    // إذا كان اسم المستخدم موجودًا، الانتقال مباشرة إلى قائمة الاختبارات
+    welcomeContainer.style.display = "none";
+    testSelectionContainer.style.display = "block";
+    testSelectionContainer.classList.add("visible");
   }
 }, 1500);
 
@@ -310,6 +316,10 @@ document.getElementById("user-form").addEventListener("submit", (e) => {
   updateTestStatus();
 });
 
+function goBackToSelection() {
+  location.reload(); // إعادة تحميل الصفحة
+}
+
 function startTest(testNumber) {
   currentTest = testNumber;
   currentQuestionIndex = 0;
@@ -320,6 +330,7 @@ function startTest(testNumber) {
   const container = document.querySelector(".container");
   container.style.display = "block";
   container.classList.add("visible");
+  document.getElementById("back-to-selection-button").style.display = "block"; // عرض زر العودة
   startTimer(60 * 60); // بدء المؤقت لمدة ساعة واحدة (3600 ثانية)
   showQuestion(currentQuestionIndex);
 }
@@ -371,12 +382,10 @@ function showQuestion(index) {
     input.style.width = "80%"; // عرض الحقل
     input.style.borderRadius = "4px"; // حواف دائرية للحقل
     input.style.border = "1px solid #ccc"; // حدود الحقل
+    input.value = userAnswers[index] || ""; // استرجاع الإجابة السابقة إذا كانت موجودة
     input.addEventListener("input", () => {
       userAnswers[index] = input.value; // تخزين إجابة المستخدم
-      nextButton.style.display = "block"; // عرض زر الانتقال للسؤال التالي
-      if (currentQuestionIndex === questions.length - 1) {
-        nextButton.textContent = "تسليم الاختبار"; // تغيير نص الزر في السؤال الأخير
-      }
+      nextButton.disabled = !input.value.trim(); // تعطيل الزر إذا لم يتم إدخال إجابة
     });
     questionDiv.appendChild(input);
   } else {
@@ -386,6 +395,9 @@ function showQuestion(index) {
     question.options.forEach((option) => {
       const button = document.createElement("button"); // إنشاء زر لكل خيار
       button.textContent = option; // تعيين نص الخيار
+      if (userAnswers[index] === option) {
+        button.classList.add("selected"); // تحديد الإجابة السابقة إذا كانت موجودة
+      }
       button.addEventListener("click", () => {
         // إضافة مستمع للنقر على الزر
         userAnswers[index] = option; // تخزين إجابة المستخدم
@@ -393,10 +405,7 @@ function showQuestion(index) {
           btn.classList.remove("selected"); // إزالة الفئة من جميع الأزرار
         });
         button.classList.add("selected"); // إضافة الفئة للزر المحدد
-        nextButton.style.display = "block"; // عرض زر الانتقال للسؤال التالي
-        if (currentQuestionIndex === questions.length - 1) {
-          nextButton.textContent = "تسليم الاختبار"; // تغيير نص الزر في السؤال الأخير
-        }
+        nextButton.disabled = false; // تمكين زر "السؤال التالي"
       });
       optionsDiv.appendChild(button); // إضافة الزر إلى عنصر الخيارات
     });
@@ -405,22 +414,37 @@ function showQuestion(index) {
   }
 
   questionsContainer.appendChild(questionDiv); // إضافة عنصر السؤال إلى عنصر الأسئلة
+
+  // عرض زر "السؤال السابق" إذا لم يكن السؤال الأول
+  previousButton.style.display = index > 0 ? "block" : "none";
+
+  // تمكين أو تعطيل زر "السؤال التالي" بناءً على الإجابة
+  nextButton.disabled = !userAnswers[index];
+  nextButton.style.display = "block"; // التأكد من أن الزر ظاهر دائمًا
 }
 
+previousButton.addEventListener("click", () => {
+  // التأكد من أن المؤشر أكبر من الصفر
+  if (currentQuestionIndex > 0) {
+    currentQuestionIndex--; // تقليل المؤشر بمقدار واحد
+    showQuestion(currentQuestionIndex); // عرض السؤال بناءً على المؤشر الجديد
+  }
+});
+
 nextButton.addEventListener("click", () => {
-  // إضافة مستمع للنقر على زر الانتقال للسؤال التالي
-  currentQuestionIndex++; // زيادة مؤشر السؤال الحالي
+  // إضافة مستمع للنقر على زر "السؤال التالي"
   const questions =
     currentTest === 1
       ? questionsTest1
       : currentTest === 2
       ? questionsTest2
       : questionsTest3;
-  if (currentQuestionIndex < questions.length) {
-    showQuestion(currentQuestionIndex); // عرض السؤال التالي
-    nextButton.style.display = "none"; // إخفاء زر الانتقال للسؤال التالي
+
+  if (currentQuestionIndex < questions.length - 1) {
+    currentQuestionIndex++; // زيادة مؤشر السؤال الحالي بمقدار واحد
+    showQuestion(currentQuestionIndex); // عرض السؤال التالي بناءً على المؤشر الجديد
   } else {
-    showResult(); // عرض النتيجة النهائية
+    showResult(); // عرض النتيجة النهائية إذا كان المستخدم في آخر سؤال
   }
 });
 
@@ -598,6 +622,7 @@ window.addEventListener("load", () => {
   if (storedUsername) {
     document.getElementById("username").value = storedUsername;
     welcomeContainer.style.display = "none";
+    formContainer.style.display = "none"; // إخفاء الفورم
     testSelectionContainer.style.display = "block";
     testSelectionContainer.classList.add("visible");
   }
