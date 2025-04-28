@@ -1,4 +1,4 @@
-const CACHE_NAME = 'my-app-cache-v17';
+const CACHE_NAME = 'my-app-cache-v19';
 const urlsToCache = [
   './',
   './index.html',
@@ -49,9 +49,16 @@ self.addEventListener('fetch', event => {
           return fetchResponse;
         }
         return caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, fetchResponse.clone());
+          try {
+            cache.put(event.request, fetchResponse.clone());
+          } catch (error) {
+            console.warn(`Failed to cache request: ${event.request.url}`, error);
+          }
           return fetchResponse;
         });
+      }).catch(error => {
+        console.error(`Fetch failed for: ${event.request.url}`, error);
+        throw error;
       });
     })
   );
